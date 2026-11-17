@@ -1,23 +1,33 @@
 # ChatBoost AI
 
-ChatBoost AI is an early-stage SaaS MVP for website customer conversations and lead capture.
+ChatBoost AI is being developed as a mobile-first, bilingual business sales desk for Cameroon and international small businesses.
 
-## Current MVP
+## Product direction
 
-- Responsive product landing page.
-- Interactive product demo chat.
-- Rule-based demo responses when no AI key is configured.
-- Optional OpenAI-compatible chat completion integration.
-- Early-access lead form with server-side validation.
-- Supabase lead storage endpoint and SQL schema.
+The product aims to bring customer enquiries, contacts, follow-ups, product catalogue, stock, orders, simple reporting and AI-assisted marketing / reply drafting into one workspace. The first wedge is helping small businesses turn enquiries into tracked sales.
+
+## Current repository contents
+
+- Responsive marketing website and interactive FAQ demo chat.
+- Interactive sample business dashboard at `/dashboard` (sample data only; browser-session changes are not persisted).
+- Early-access lead form and server-side validation.
+- Existing Supabase lead storage endpoint and initial lead schema.
+- Proposed multi-tenant platform schema at `supabase/platform-schema.sql`.
+- Cameroon and global competitor / pricing research at `docs/market-research-2026-11.md`.
 - Health-check endpoint and Render deployment blueprint.
+
+## Important: what is and is not live
+
+The dashboard is an interactive product preview. Its sample contacts, products, orders, metrics and marketing drafts are not saved to a customer account. The new platform SQL is a design foundation and has not been applied to a live database. Customer authentication, tenant provisioning, production CRUD APIs, persistent workspace data, billing, channel integrations and security testing are not complete. Do not collect customer business data or charge subscriptions yet.
+
+The public GitHub repository contains no credentials. Never commit API keys, database passwords or service-role keys. Configure secrets only in a trusted host's environment settings.
 
 ## Stack
 
 - Next.js App Router
 - React and TypeScript
-- Supabase (Postgres lead storage)
-- Optional OpenAI API for AI responses
+- Supabase Postgres / Auth (planned)
+- Optional OpenAI API for AI replies (server-side only)
 - Render or another Node.js host
 
 ## Run locally
@@ -32,39 +42,33 @@ npm run dev
 
 Open http://localhost:3000.
 
-The chat demo works without an AI key using a limited built-in knowledge base. To enable AI responses, add `OPENAI_API_KEY` and optionally set `OPENAI_MODEL` in the server environment. API usage is billed separately by the AI provider; a ChatGPT subscription does not include API credits.
+The public chat demo uses a limited built-in knowledge base when no AI key is configured. To enable AI responses, add `OPENAI_API_KEY` and optionally set `OPENAI_MODEL` in the server environment. API usage is billed separately by the AI provider; a ChatGPT subscription does not include API credits.
 
-## Configure lead storage
+## Database setup
 
-1. Create a Supabase project.
-2. Open the Supabase SQL Editor.
-3. Run `supabase/schema.sql`.
-4. Add `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` to the server environment.
-5. Never expose the service-role key in browser code or a `NEXT_PUBLIC_` variable.
+- `supabase/schema.sql` is the original lead-capture schema.
+- `supabase/platform-schema.sql` is the proposed multi-tenant product schema for future authenticated workspaces.
 
-Until Supabase is configured, the lead form returns a setup message and does not pretend that a lead was saved.
+Do not run the platform schema in production without review and an onboarding / membership-provisioning implementation. Keep service-role credentials server-only. Do not create permissive anonymous policies.
 
-## Deploy on Render
+## Deploy
 
-A `render.yaml` Blueprint is included.
+A `render.yaml` Blueprint is included. Configure environment secrets in the host dashboard. Deployment and production runtime testing have not yet been completed.
 
-- Build command: `npm install && npm run build`
-- Start command: `npm start`
-- Node version: 22
-- Health check: `/api/health`
-- Set the secret environment variables in the Render dashboard when prompted.
+## Research and pricing
 
-## Important scope and production checklist
+See `docs/market-research-2026-11.md` for competitor positioning, observed public prices, Cameroon market evidence, pricing hypotheses and a staged product roadmap. Proposed prices are hypotheses to validate with real businesses, not confirmed market rates.
 
-This is a demo/MVP foundation, not a finished multi-tenant SaaS or a production-ready customer-support platform. It does not yet include customer authentication, separate workspaces, configurable knowledge bases, conversation persistence, human-agent inboxes, subscription checkout, Paddle webhooks, usage metering, rate limiting, or admin roles.
+## Before launch
 
-Before accepting real customer data or payments, implement and test:
-- Authentication and tenant-level data isolation.
-- Server-side authorization on every customer data operation.
-- Rate limiting, abuse controls, spam protection and monitoring.
-- Privacy notice, terms, data retention and deletion workflows.
-- Paddle checkout and signed webhook verification.
-- Subscription entitlements and cancellation handling.
-- Automated tests, backups and security review.
+- Implement Supabase Auth and secure workspace onboarding.
+- Implement tenant-scoped server-side CRUD with authorization on every operation.
+- Add rate limiting, abuse controls, audit logs and monitoring.
+- Add privacy notice, terms, data retention and deletion workflows.
+- Implement and test AI usage quotas and cost tracking.
+- Integrate WhatsApp / Meta only through official approved APIs and permissions.
+- Verify payment-provider eligibility, settlement and signed webhook flows.
+- Add automated tests, backups and a security review.
+- Conduct paid pilots and validate pricing before scaling.
 
-Do not promise customers features that are not implemented.
+Do not promise customers features or integrations that are not implemented.
