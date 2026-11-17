@@ -105,6 +105,7 @@ export default function Home() {
           <a href="#features">Features</a>
           <a href="#demo">Live demo</a>
           <a href="/dashboard">Dashboard</a>
+          <a href="/pricing">Pricing</a>
           <a className="nav-cta" href="#contact">Get early access <span>↗</span></a>
         </div>
       </nav>
