@@ -104,6 +104,7 @@ export default function Home() {
         <div className="nav-links">
           <a href="#features">Features</a>
           <a href="#demo">Live demo</a>
+          <a href="/dashboard">Dashboard</a>
           <a className="nav-cta" href="#contact">Get early access <span>↗</span></a>
         </div>
       </nav>
@@ -117,8 +118,8 @@ export default function Home() {
             capture leads and keep conversations moving — even when your team is away.
           </p>
           <div className="hero-actions">
-            <a className="button button-primary" href="#demo">Try the live demo <span>→</span></a>
-            <a className="button button-quiet" href="#features">Explore features</a>
+            <a className="button button-primary" href="/dashboard">Explore dashboard <span>→</span></a>
+            <a className="button button-quiet" href="#demo">Try AI chat demo</a>
           </div>
           <div className="hero-proof">
             <div className="proof-avatars"><i>✦</i><i>●</i><i>◆</i></div>
@@ -146,13 +147,13 @@ export default function Home() {
       <section className="section wrap" id="features">
         <div className="section-heading">
           <div className="eyebrow">LESS REPETITION. MORE MOMENTUM.</div>
-          <h2>Every conversation can move business forward.</h2>
-          <p>Give visitors helpful answers and give your team more time to focus on the work that matters.</p>
+          <h2>One simple workspace for your daily sales.</h2>
+          <p>Bring enquiries, customer follow-ups, products, orders and marketing drafts into one mobile-friendly business desk.</p>
         </div>
         <div className="feature-grid">
-          <article className="feature-card"><span className="feature-icon">✧</span><h3>Helpful AI replies</h3><p>Answer common questions with a consistent assistant trained on your business information.</p><span className="feature-number">01 / RESPOND</span></article>
-          <article className="feature-card"><span className="feature-icon">⌁</span><h3>Capture interested leads</h3><p>Make it easy for visitors to leave their contact details and tell you what they need.</p><span className="feature-number">02 / CAPTURE</span></article>
-          <article className="feature-card"><span className="feature-icon">◷</span><h3>Keep conversations moving</h3><p>Offer a clear next step when a visitor is ready to speak with your team.</p><span className="feature-number">03 / CONVERT</span></article>
+          <article className="feature-card"><span className="feature-icon">✧</span><h3>AI customer assistant</h3><p>Draft helpful replies and answer common questions using business-approved information.</p><span className="feature-number">01 / RESPOND</span></article>
+          <article className="feature-card"><span className="feature-icon">⌁</span><h3>Leads, quotes and follow-ups</h3><p>Keep customer details and next steps organized so warm enquiries do not get forgotten.</p><span className="feature-number">02 / SELL</span></article>
+          <article className="feature-card"><span className="feature-icon">◷</span><h3>Products, orders and stock</h3><p>Track what you sell, what customers order and which products need restocking.</p><span className="feature-number">03 / OPERATE</span></article>
         </div>
       </section>
 
