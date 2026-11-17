@@ -53,7 +53,9 @@ Do not run the platform schema in production without review and an onboarding / 
 
 ## Deploy
 
-A `render.yaml` Blueprint is included. Configure environment secrets in the host dashboard. Deployment and production runtime testing have not yet been completed.
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/telegramslots027-afk/leadpilot-ai)
+
+A `render.yaml` Blueprint is included. The one-click link opens Render, where you sign in, connect GitHub, review the service and approve deployment. The Blueprint uses a paid Starter web-service plan in Frankfurt; check the current monthly charge in Render before confirming. The AI and database keys are optional for the public demo, so the site can start without them. AI replies require a server-side OpenAI API key; persistent lead capture requires Supabase configuration. Deployment and production runtime testing have not yet been completed.
 
 ## Research and pricing
 
