@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { FormEvent, useMemo, useState } from "react";
 import styles from "./dashboard.module.css";
 
 type Product = { id: number; name: string; sku: string; price: number; stock: number };
@@ -33,7 +33,7 @@ export default function DashboardPage() {
   const lowStock = products.filter((product) => product.stock <= 4).length;
   const revenue = useMemo(() => orders.filter((order) => order.status === "Fulfilled").reduce((sum, order) => sum + order.amount, 0), [orders]);
 
-  function addProduct(event: React.FormEvent<HTMLFormElement>) {
+  function addProduct(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!productName.trim()) return;
     setProducts((items) => [...items, { id: Date.now(), name: productName.trim(), sku: "NEW-" + (items.length + 1), price: Number(productPrice) || 0, stock: Math.max(0, Number(productStock) || 0) }]);
