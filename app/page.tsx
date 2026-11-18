@@ -103,7 +103,7 @@ export default function Home() {
         </a>
         <div className="nav-links">
           <a href="#features">Features</a>
-          <a href="#demo">Live demo</a>
+          <a href="/demo">Live demo</a>
           <a href="/dashboard">Dashboard</a>
           <a href="/pricing">Pricing</a>
           <a className="nav-cta" href="#contact">Get early access <span>↗</span></a>
@@ -113,14 +113,14 @@ export default function Home() {
       <section className="hero wrap">
         <div className="hero-copy">
           <div className="eyebrow"><span className="pulse" /> AI CUSTOMER CONVERSATIONS</div>
-          <h1>Turn more website visits into <span>real customers.</span></h1>
+          <h1>Turn more website enquiries into <span>real customers.</span></h1>
           <p className="hero-text">
-            Meet the AI assistant that helps your business answer questions,
+            Meet the AI assistant that helps dealerships and small businesses answer questions,
             capture leads and keep conversations moving — even when your team is away.
           </p>
           <div className="hero-actions">
-            <a className="button button-primary" href="/dashboard">Explore dashboard <span>→</span></a>
-            <a className="button button-quiet" href="#demo">Try AI chat demo</a>
+            <a className="button button-primary" href="/demo">Try the demo <span>→</span></a>
+            <a className="button button-quiet" href="/demo">Try dealership demo</a>
           </div>
           <div className="hero-proof">
             <div className="proof-avatars"><i>✦</i><i>●</i><i>◆</i></div>
