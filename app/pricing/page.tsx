@@ -3,7 +3,7 @@
 import styles from "./pricing.module.css";
 
 const plans = [
-  { name: "Starter", price: "$19", detail: "For a small business getting started with structured customer replies.", items: ["One business demo workspace (planned)", "FAQ and reply library", "Basic lead organization (planned)", "English and Spanish content templates"] },
+  { name: "Starter", price: "$19", detail: "For a small business getting started with structured customer replies.", items: ["One business demo workspace (planned)", "FAQ and reply library (planned)", "Basic lead organization (planned)", "English and Spanish reply templates (planned)"] },
   { name: "Growth", price: "$49", detail: "For teams handling regular website and sales enquiries.", featured: true, items: ["Everything in Starter", "Expanded lead follow-up tools (planned)", "Business-specific AI assistant (planned)", "Team access (planned)", "Usage limits and reporting (planned)"] },
   { name: "Dealership", price: "$99", detail: "For independent dealerships managing vehicle enquiries.", items: ["Everything in Growth", "Vehicle catalogue assistant (planned)", "Sales enquiry summaries (planned)", "Multiple sales users (planned)", "Priority onboarding (planned)"] }
 ];
