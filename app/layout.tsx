@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "ChatBoost AI | Turn website visitors into customers",
+  title: "ChatBoost AI | AI customer assistant for dealerships and small businesses",
   description:
-    "An AI-powered customer conversation and lead capture assistant for growing businesses."
+    "A bilingual AI customer enquiry demo for US car dealerships and growing small businesses."
 };
 
 export default function RootLayout({
