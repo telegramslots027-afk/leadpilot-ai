@@ -8,8 +8,9 @@ The product aims to bring customer enquiries, contacts, follow-ups, product cata
 
 ## Current repository contents
 
-- Responsive marketing website and interactive FAQ demo chat.
+- Responsive marketing website and a shareable bilingual US dealership demo at `/demo` (scripted responses and fictional inventory).
 - Interactive sample business dashboard at `/dashboard` (sample data only; browser-session changes are not persisted).
+- Proposed US monthly subscription pricing page at `/pricing` (pricing hypotheses only; checkout is disabled).
 - Early-access lead form and server-side validation.
 - Existing Supabase lead storage endpoint and initial lead schema.
 - Proposed multi-tenant platform schema at `supabase/platform-schema.sql`.
@@ -18,7 +19,7 @@ The product aims to bring customer enquiries, contacts, follow-ups, product cata
 
 ## Important: what is and is not live
 
-The dashboard is an interactive product preview. Its sample contacts, products, orders, metrics and marketing drafts are not saved to a customer account. The new platform SQL is a design foundation and has not been applied to a live database. Customer authentication, tenant provisioning, production CRUD APIs, persistent workspace data, billing, channel integrations and security testing are not complete. Do not collect customer business data or charge subscriptions yet.
+The `/demo`, dashboard and pricing pages are product previews. The dealership chat uses scripted sample responses and fictional vehicle data; it is not connected to a dealer's inventory, customer management system or messaging channels. The lead summary on the demo page is not transmitted or saved. The dashboard is an interactive product preview. Its sample contacts, products, orders, metrics and marketing drafts are not saved to a customer account. The new platform SQL is a design foundation and has not been applied to a live database. Customer authentication, tenant provisioning, production CRUD APIs, persistent workspace data, billing, channel integrations and security testing are not complete. Do not collect customer business data or charge subscriptions yet. The proposed US plans ($19 / $49 / $99 per month) are unvalidated pricing hypotheses and checkout is not implemented.
 
 The public GitHub repository contains no credentials. Never commit API keys, database passwords or service-role keys. Configure secrets only in a trusted host's environment settings.
 
