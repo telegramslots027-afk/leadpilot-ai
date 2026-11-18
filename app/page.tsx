@@ -120,7 +120,7 @@ export default function Home() {
           </p>
           <div className="hero-actions">
             <a className="button button-primary" href="/demo">Try the demo <span>→</span></a>
-            <a className="button button-quiet" href="/demo">Try dealership demo</a>
+            <a className="button button-quiet" href="#demo">See small-business chat preview</a>
           </div>
           <div className="hero-proof">
             <div className="proof-avatars"><i>✦</i><i>●</i><i>◆</i></div>
