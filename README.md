@@ -79,3 +79,10 @@ See `docs/market-research-2026-11.md` for competitor positioning, observed publi
 - Conduct paid pilots and validate pricing before scaling.
 
 Do not promise customers features or integrations that are not implemented.
+
+
+## Ryan Corp launch documents
+
+- [Zero-budget business plan](docs/ryan-corp-zero-budget-business-plan.md)
+- [Lead Response Setup pilot offer](docs/ryan-corp-lead-response-pilot-offer.md)
+- [Flutterwave integration plan](docs/flutterwave-integration-plan.md) — checkout remains disabled pending merchant approval and end-to-end testing.
