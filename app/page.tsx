@@ -103,7 +103,7 @@ export default function Home() {
         </a>
         <div className="nav-links">
           <a href="#features">Features</a>
-          <a href="/replyboost">Reply generator</a><a href="/demo">Live demo</a>
+          <a href="/replyboost">Reply generator</a><a href="/demo">Live demo</a><a href="/real-estate/portal">Agent portal</a>
           <a href="/dashboard">Dashboard</a>
           <a href="/pricing">Pricing</a>
           <a className="nav-cta" href="#contact">Get early access <span>↗</span></a>
