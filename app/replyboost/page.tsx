@@ -37,9 +37,9 @@ function makeReply(scenario: Scenario, tone: Tone, language: Language, customer:
     objection: `Hola ${name}, gracias por compartir tus dudas. Es razonable tomarse el tiempo necesario antes de decidir sobre ${product}. ¿Cuál es tu principal preocupación? Puedo aclarar la información y ayudarte a comparar opciones, sin presión.`
   };
   let result = (language === "Spanish" ? es : en)[scenario];
-  if (tone === "Friendly") result += language === "Spanish" ? "\\n\\n¡Que tengas un excelente día!" : "\\n\\nHope you have a great day!";
-  if (tone === "Confident") result += language === "Spanish" ? "\\n\\nEstoy listo para ayudarte con el siguiente paso cuando tú quieras." : "\\n\\nI’m ready to help with the next step whenever you are.";
-  if (tone === "Professional") result += language === "Spanish" ? "\\n\\nSaludos cordiales." : "\\n\\nBest regards.";
+  if (tone === "Friendly") result += language === "Spanish" ? "\n\n¡Que tengas un excelente día!" : "\n\nHope you have a great day!";
+  if (tone === "Confident") result += language === "Spanish" ? "\n\nEstoy listo para ayudarte con el siguiente paso cuando tú quieras." : "\n\nI’m ready to help with the next step whenever you are.";
+  if (tone === "Professional") result += language === "Spanish" ? "\n\nSaludos cordiales." : "\n\nBest regards.";
   return result;
 }
 
