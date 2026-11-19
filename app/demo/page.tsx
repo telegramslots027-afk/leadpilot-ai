@@ -68,6 +68,12 @@ export default function DemoPage() {
   const [draft, setDraft] = useState("");
   const [leadInterest, setLeadInterest] = useState("2022 Toyota Camry SE");
   const [sent, setSent] = useState(false);
+  const [thinking, setThinking] = useState(false);
+  const [leadName, setLeadName] = useState("");
+  const [leadEmail, setLeadEmail] = useState("");
+  const [leadBusiness, setLeadBusiness] = useState("");
+  const [leadMessage, setLeadMessage] = useState("");
+  const [leadStatus, setLeadStatus] = useState("");
   const t = copy[language];
   const messageCount = useMemo(() => messages.filter((m) => m.role === "user").length, [messages]);
 
@@ -78,20 +84,60 @@ export default function DemoPage() {
     setSent(false);
   }
 
-  function send(value?: string) {
+  async function send(value?: string) {
     const text = (value ?? draft).trim();
-    if (!text) return;
-    setMessages((items) => [...items, { role: "user", text }, { role: "assistant", text: answer(text, language) }]);
+    if (!text || thinking) return;
+    const previous = messages.slice(-8).map((item) => ({ role: item.role, content: item.text }));
+    setMessages((items) => [...items, { role: "user", text }]);
     setDraft("");
+    setThinking(true);
     if (text.toLowerCase().includes("cr-v") || text.toLowerCase().includes("suv")) setLeadInterest("2021 Honda CR-V EX");
     else if (text.toLowerCase().includes("f-150") || text.toLowerCase().includes("truck")) setLeadInterest("2023 Ford F-150 XLT");
     else if (text.toLowerCase().includes("camry")) setLeadInterest("2022 Toyota Camry SE");
     setSent(false);
+    try {
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          message: text,
+          history: previous,
+          businessName: "Sample dealership",
+          businessContext: vehicles.map((v) => v.year + " " + v.make + " " + v.model + " " + v.trim + ": $" + v.price + ", " + v.miles + " miles. " + v.description).join("\n"),
+          language
+        })
+      });
+      const data = await response.json();
+      const reply = data.mode === "ai" && typeof data.reply === "string" ? data.reply : answer(text, language);
+      setMessages((items) => [...items, { role: "assistant", text: reply }]);
+    } catch {
+      setMessages((items) => [...items, { role: "assistant", text: answer(text, language) }]);
+    } finally {
+      setThinking(false);
+    }
   }
 
-  function submitLead(event: FormEvent<HTMLFormElement>) {
+  async function submitLead(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setSent(true);
+    setLeadStatus("");
+    try {
+      const response = await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: leadName,
+          email: leadEmail,
+          business: leadBusiness,
+          message: "Interested in: " + leadInterest + ". " + leadMessage
+        })
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || "Unable to submit your request.");
+      setSent(true);
+      setLeadStatus(language === "en" ? "Thanks — your request was received." : "Gracias — recibimos tu solicitud.");
+    } catch (error) {
+      setLeadStatus(error instanceof Error ? error.message : "Unable to submit your request.");
+    }
   }
 
   return (
@@ -143,18 +189,20 @@ export default function DemoPage() {
             <input value={draft} onChange={(event) => setDraft(event.target.value)} placeholder={t.placeholder} aria-label={t.placeholder}/>
             <button type="submit" disabled={!draft.trim()}>{t.send}</button>
           </form>
-          <div className={styles.chatFooter}>CHATBOOST AI · {messageCount} {language === "en" ? "sample questions" : "preguntas de ejemplo"}</div>
+          <div className={styles.chatFooter}>CHATBOOST AI · {messageCount} {language === "en" ? "questions" : "preguntas"}{thinking ? (language === "en" ? " · assistant is replying…" : " · el asistente está respondiendo…") : ""}</div>
         </aside>
       </section>
 
       <section className={styles.leadPreview}>
         <div><span className={styles.kicker}>SALES TEAM VIEW</span><h2>{t.leadTitle}</h2><p>{t.leadText}</p></div>
         <form onSubmit={submitLead}>
-          <label>{t.name}<input value={language === "en" ? "Alex Morgan" : "Alex Morgan"} readOnly /></label>
+          <label>{language === "en" ? "Your name" : "Tu nombre"}<input required minLength={2} maxLength={100} value={leadName} onChange={(e) => setLeadName(e.target.value)} placeholder="Alex Morgan" /></label>
+          <label>{language === "en" ? "Email address" : "Correo electrónico"}<input required type="email" maxLength={254} value={leadEmail} onChange={(e) => setLeadEmail(e.target.value)} placeholder="alex@example.com" /></label>
+          <label>{language === "en" ? "Dealership / business" : "Concesionario / empresa"}<input maxLength={150} value={leadBusiness} onChange={(e) => setLeadBusiness(e.target.value)} placeholder={language === "en" ? "Your business name" : "Nombre de tu empresa"} /></label>
           <label>{t.interest}<input value={leadInterest} readOnly /></label>
-          <label>{t.next}<textarea value={t.nextValue} readOnly rows={2}/></label>
-          <button type="submit">{language === "en" ? "Preview lead summary" : "Ver resumen del cliente"}</button>
-          {sent && <p className={styles.success}>{language === "en" ? "Preview complete. No customer data has been sent or saved." : "Vista previa lista. No se han enviado ni guardado datos del cliente."}</p>}
+          <label>{language === "en" ? "What would you like to know?" : "¿Qué te gustaría saber?"}<textarea rows={2} maxLength={2000} value={leadMessage} onChange={(e) => setLeadMessage(e.target.value)} placeholder={language === "en" ? "I'd like to arrange a test drive…" : "Me gustaría programar una prueba de manejo…"} /></label>
+          <button type="submit" disabled={sent}>{sent ? (language === "en" ? "Request received ✓" : "Solicitud recibida ✓") : (language === "en" ? "Send enquiry" : "Enviar solicitud")}</button>
+          {leadStatus && <p className={styles.success}>{leadStatus}</p>}
         </form>
       </section>
       <footer className={styles.footer}><a href="/">ChatBoost AI</a><span>{t.footer}</span><a href="/pricing">{t.plans} ↗</a></footer>
