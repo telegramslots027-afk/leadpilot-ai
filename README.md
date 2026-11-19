@@ -9,6 +9,7 @@ The product aims to bring customer enquiries, contacts, follow-ups, product cata
 ## Current repository contents
 
 - Responsive marketing website and a shareable bilingual US dealership demo at `/demo` (scripted responses and fictional inventory).
+- Bilingual US real-estate assistant demo at `/realestate/` (scripted responses and fictional property listings).
 - Interactive sample business dashboard at `/dashboard` (sample data only; browser-session changes are not persisted).
 - Proposed US monthly subscription pricing page at `/pricing` (pricing hypotheses only; checkout is disabled).
 - Early-access lead form and server-side validation.
@@ -60,7 +61,7 @@ A `render.yaml` Blueprint is included. The one-click link opens Render, where yo
 
 ## Research and pricing
 
-See `docs/market-research-2026-11.md` for competitor positioning, observed public prices, Cameroon market evidence, pricing hypotheses and a staged product roadmap. Proposed prices are hypotheses to validate with real businesses, not confirmed market rates.
+See `docs/market-research-2026-11.md` for competitor positioning, observed public prices, Cameroon market evidence, pricing hypotheses and a staged product roadmap. See `docs/real-estate-product-plan.md` for the US real-estate product, setup + subscription pricing, sales process, implementation roadmap and compliance guardrails. Proposed prices are hypotheses to validate with real businesses, not confirmed market rates.
 
 ## Before launch
 
