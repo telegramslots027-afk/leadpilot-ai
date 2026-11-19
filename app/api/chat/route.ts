@@ -4,13 +4,7 @@ export const runtime = "nodejs";
 
 type ChatMessage = { role: "assistant" | "user"; content: string };
 
-const systemPrompt = `You are ChatBoost AI's friendly product demonstration assistant.
-Explain that ChatBoost AI helps businesses answer common website questions, capture leads,
-and route interested visitors toward a human follow-up. Do not claim features are already
-available if they are not. The current MVP is an early-access demo. Do not invent prices,
-integrations, customer counts, guarantees, or launch dates. If asked about pricing, say
-plans are being finalized and invite the visitor to request early access. Keep replies
-helpful, concise, and honest.`;
+const systemPrompt = `You are a helpful website sales assistant for the business described in the business context. Answer only from the supplied business context. Do not invent inventory, prices, availability, financing approvals, warranties, appointments, policies, or integrations. If information is missing, say a team member must confirm it and invite the visitor to leave contact details. Never claim an appointment is booked or a lead has been saved unless the application confirms it. Be concise, friendly, and answer in the requested language.`;
 
 function demoReply(message: string) {
   const text = message.toLowerCase();
@@ -34,6 +28,9 @@ export async function POST(request: Request) {
     const body = await request.json();
     const message = typeof body.message === "string" ? body.message.trim() : "";
     const history = Array.isArray(body.history) ? (body.history as ChatMessage[]) : [];
+    const businessName = typeof body.businessName === "string" ? body.businessName.trim().slice(0, 120) : "the business";
+    const businessContext = typeof body.businessContext === "string" ? body.businessContext.trim().slice(0, 4000) : "";
+    const languageInstruction = body.language === "es" ? "Respond in Spanish." : "Respond in English.";
 
     if (!message || message.length > 1500) {
       return NextResponse.json({ error: "Enter a message under 1,500 characters." }, { status: 400 });
@@ -62,7 +59,7 @@ export async function POST(request: Request) {
       body: JSON.stringify({
         model: process.env.OPENAI_MODEL || "gpt-4.1-mini",
         messages: [
-          { role: "system", content: systemPrompt },
+          { role: "system", content: `${systemPrompt}\nBusiness: ${businessName}\nBusiness context: ${businessContext || "No additional business details supplied."}\n${languageInstruction}` },
           ...safeHistory,
           { role: "user", content: message }
         ],
