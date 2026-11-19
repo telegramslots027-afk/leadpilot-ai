@@ -34,12 +34,13 @@ export default function RealEstatePortal() {
     event.preventDefault(); setBusy(true); setNotice("");
     if (!supabaseUrl || !apiKey) { setNotice("The app is not connected to Supabase yet. Add the public project URL and anon key in the hosting environment."); setBusy(false); return; }
     try {
-      const endpoint = mode === "signup" ? "/auth/v1/signup" : "/auth/v1/token?grant_type=password";
+      const endpoint = mode === "signup" ? "/auth/v1/signup?redirect_to=" + encodeURIComponent(window.location.origin + "/real-estate/portal") : "/auth/v1/token?grant_type=password";
       const response = await fetch(supabaseUrl + endpoint, { method: "POST", headers: { apikey: apiKey, "Content-Type": "application/json" }, body: JSON.stringify({ email, password, ...(mode === "signup" ? { data: { product: "chatboost-real-estate" } } : {}) }) });
       const data = await response.json();
       if (!response.ok) throw new Error(data.msg || data.message || data.error_description || "Authentication failed. Check your email and password.");
       if (!data.access_token) { setNotice("Account created. Check your email for the confirmation link, then return here and sign in."); setMode("signin"); return; }
       window.localStorage.setItem("chatboost_re_session", data.access_token);
+      if (data.refresh_token) window.localStorage.setItem("chatboost_re_refresh", data.refresh_token);
       setToken(data.access_token);
       setNotice("Signed in. Preparing your workspace…");
     } catch (error) { setNotice(error instanceof Error ? error.message : "Unable to sign in."); }
@@ -89,7 +90,7 @@ export default function RealEstatePortal() {
     finally { setBusy(false); }
   }
 
-  function signOut() { window.localStorage.removeItem("chatboost_re_session"); setToken(""); setProperties([]); setLeads([]); setWorkspace(null); setNotice("You have signed out."); }
+  function signOut() { window.localStorage.removeItem("chatboost_re_session"); window.localStorage.removeItem("chatboost_re_refresh"); setToken(""); setProperties([]); setLeads([]); setWorkspace(null); setNotice("You have signed out."); }
 
   if (!token) return <main className={styles.shell}><header className={styles.top}><a href="/" className={styles.brand}>ChatBoost <b>AI</b></a><span>REAL ESTATE WORKSPACE</span></header><section className={styles.authCard}><div className={styles.eyebrow}>AGENT PORTAL</div><h1>{mode === "signup" ? "Create your agent account" : "Welcome back"}</h1><p>Manage property listings and enquiries in one place.</p><form onSubmit={auth} className={styles.form}><label>Work email<input required type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@agency.com" /></label><label>Password<input required type="password" minLength={8} value={password} onChange={e => setPassword(e.target.value)} placeholder="At least 8 characters" /></label><button disabled={busy}>{busy ? "Please wait…" : mode === "signup" ? "Create account" : "Sign in"}</button></form><button className={styles.linkButton} onClick={() => setMode(mode === "signup" ? "signin" : "signup")}>{mode === "signup" ? "Already have an account? Sign in" : "New here? Create an account"}</button>{notice && <p className={styles.notice}>{notice}</p>}<p className={styles.fine}>Your account is private. Use a work email you control. Email confirmation may be required.</p></section></main>;
 
