@@ -10,17 +10,20 @@ The product aims to bring customer enquiries, contacts, follow-ups, product cata
 
 - Responsive marketing website and a shareable bilingual US dealership demo at `/demo` (scripted responses and fictional inventory).
 - Bilingual US real-estate assistant demo at `/realestate/` (scripted responses and fictional property listings).
+- Early real-estate agent portal at `/real-estate/portal` with Supabase email/password sign-up, workspace onboarding, property creation, lead inbox and lead-status updates (requires Supabase configuration and SQL migrations).
 - Interactive sample business dashboard at `/dashboard` (sample data only; browser-session changes are not persisted).
 - Proposed US monthly subscription pricing page at `/pricing` (pricing hypotheses only; checkout is disabled).
 - Early-access lead form and server-side validation.
 - Existing Supabase lead storage endpoint and initial lead schema.
 - Proposed multi-tenant platform schema at `supabase/platform-schema.sql`.
+- Real-estate MVP schema at `supabase/real-estate-mvp.sql` (agent-owned properties and consent-based visitor enquiries).
+- Tenant-scoped real-estate API routes for workspace onboarding, property management, lead management and public enquiry capture.
 - Cameroon and global competitor / pricing research at `docs/market-research-2026-11.md`.
 - Health-check endpoint and Render deployment blueprint.
 
 ## Important: what is and is not live
 
-The `/demo`, dashboard and pricing pages are product previews. The dealership chat uses scripted sample responses and fictional vehicle data; it is not connected to a dealer's inventory, customer management system or messaging channels. The lead summary on the demo page is not transmitted or saved. The dashboard is an interactive product preview. Its sample contacts, products, orders, metrics and marketing drafts are not saved to a customer account. The new platform SQL is a design foundation and has not been applied to a live database. Customer authentication, tenant provisioning, production CRUD APIs, persistent workspace data, billing, channel integrations and security testing are not complete. Do not collect customer business data or charge subscriptions yet. The proposed US plans ($19 / $49 / $99 per month) are unvalidated pricing hypotheses and checkout is not implemented.
+The `/demo`, dashboard and pricing pages are product previews. The dealership chat uses scripted sample responses and fictional vehicle data; it is not connected to a dealer's inventory, customer management system or messaging channels. The lead summary on the demo page is not transmitted or saved. The dashboard is an interactive product preview. Its sample contacts, products, orders, metrics and marketing drafts are not saved to a customer account. The new platform SQL is a design foundation and has not been applied to a live database. Real-estate agent sign-up and the first property/lead API foundation have been added, but they are not live until the SQL migrations and environment variables are configured on a Node.js host. Email notifications, public listing pages, production rate limiting, full security testing, billing and channel integrations are not complete. Do not collect customer business data or charge subscriptions yet. The proposed US plans ($19 / $49 / $99 per month) are unvalidated pricing hypotheses and checkout is not implemented.
 
 The public GitHub repository contains no credentials. Never commit API keys, database passwords or service-role keys. Configure secrets only in a trusted host's environment settings.
 
