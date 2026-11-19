@@ -147,3 +147,26 @@ Pilot metrics:
 - Pilot-to-paid conversion and monthly retention.
 
 First milestone: 3 paid pilot customers, not 30 speculative signups. Validate willingness to pay and delivery effort before scaling outreach.
+
+## Implementation progress (19 November 2026)
+
+Committed to the existing `main` branch:
+- `supabase/real-estate-mvp.sql`: real-estate properties, lead records, tenant indexes and RLS policies. It depends on `supabase/platform-schema.sql`.
+- `app/real-estate/portal/page.tsx`: agent sign-up/sign-in screen, workspace onboarding, property creation, lead inbox and lead-status updates.
+- `app/real-estate/property/[slug]/page.tsx`: public page for published property details and a consent-based enquiry form.
+- `app/api/real-estate/workspace/route.ts`: verified-user workspace creation.
+- `app/api/real-estate/portal/route.ts`: authenticated tenant-scoped property and lead operations.
+- `app/api/real-estate/enquiries/route.ts`: public enquiry intake validates a published property or workspace public key and records consent.
+- `lib/real-estate-server.ts`: server-side token verification and service-role helpers.
+- `.env.example` and `README.md`: required Supabase environment and deployment instructions.
+
+CI typecheck and production build succeeded on the latest checked commit. This validates compilation, not live Supabase connectivity or production security.
+
+Not yet complete / do not sell as finished:
+- The SQL migrations have not been applied to the user's Supabase project.
+- Supabase environment values have not been configured on a Node.js host.
+- The Next.js app has not been deployed to a server host. GitHub Pages only hosts the static demos and cannot run these API routes.
+- No email notification, password-reset flow, token refresh UX, rate limiting, bot protection, custom website embed, MLS/IDX, CRM, calendar, or billing integration is live.
+- No production privacy/security review or real customer acceptance test has been completed.
+
+Next execution gate: user applies `supabase/platform-schema.sql` and then `supabase/real-estate-mvp.sql` in Supabase SQL Editor, then provides the project URL and anon key through the hosting environment (never in chat or GitHub). Configure `SUPABASE_SERVICE_ROLE_KEY` only in the server host's private environment. Deploy to a Node.js host and test signup, email confirmation, workspace creation, property publishing, visitor enquiry capture and lead status updates with test data before inviting any paying customer.
